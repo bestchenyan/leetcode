@@ -1,5 +1,5 @@
 /*
- * @lc app=leetcode.cn id=59 lang=yavascript
+ * @lc app=leetcode.cn id=59 lang=javascript
  *
  * [59] 螺旋矩阵 II
  */
@@ -10,43 +10,43 @@
  * @return {number[][]}
  */
 var generateMatrix = function (n) {
-  let count = 1;
-  let result = Array.from(new Array(n), () => new Array(n).fill(0));
-  let startx = 0,
-    starty = 0;
-
-  let offset = 1;
-
-  let x, y;
-
-  let loop = Math.floor(n / 2);
-  const mid = Math.floor(n / 2);
-
-  while (loop--) {
-    for (x = startx, y = starty; y < n - offset; y++) {
-      result[x][y] = count++;
+  let output = new Array(n).fill(0).map(() => new Array(n).fill(0));
+  let count = 0;
+  let size = n * n;
+  let left = 0;
+  let right = n - 1;
+  let top = 0;
+  let bottom = n - 1;
+  while (count < size) {
+    //going left
+    for (let i = left; i <= right; i++) {
+      count++;
+      output[top][i] = count;
     }
-    for (; x < n - offset; x++) {
-      result[x][y] = count++;
-    }
+    top++;
 
-    for (; y > starty; y--) {
-      result[x][y] = count++;
+    // going down
+    for (let i = top; i <= bottom; i++) {
+      count++;
+      output[i][right] = count;
     }
+    right--;
 
-    for (; x > startx; x--) {
-      result[x][y] = count++;
+    //going left
+    for (let i = right; i >= left; i--) {
+      count++;
+      output[bottom][i] = count;
     }
+    bottom--;
 
-    startx++;
-    starty++;
-    offset++;
+    //going up
+    for (let i = bottom; i >= top; i--) {
+      count++;
+      output[i][left] = count;
+    }
+    left++;
   }
 
-  if (n % 2 === 1) {
-    result[mid][mid] = count;
-  }
-
-  return result;
+  return output;
 };
 // @lc code=end
