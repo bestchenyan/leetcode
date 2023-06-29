@@ -17,16 +17,26 @@
  * @return {ListNode}
  */
 var reverseList = function (head) {
-    let temp = null;
-    let cur = head;
-    let prev = null;
-
-    while (cur) {
-        temp = cur.next;
-        cur.next = prev;
-        prev = cur;
-        cur = temp;
-    }
-    return prev;
+  return reverse(null, head);
 };
+
+function reverse(prev, cur) {
+  if (!cur) return prev;
+  let temp = cur.next;
+  cur.next = prev;
+  return reverse(cur, temp);
+}
 // @lc code=end
+// var reverseList = function (head) {
+//     let temp = null;
+//     let cur = head;
+//     let prev = null;
+
+//     while (cur) {
+//         temp = cur.next;
+//         cur.next = prev;
+//         prev = cur;
+//         cur = temp;
+//     }
+//     return prev;
+// };
