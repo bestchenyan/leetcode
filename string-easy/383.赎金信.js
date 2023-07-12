@@ -11,21 +11,18 @@
  * @return {boolean}
  */
 var canConstruct = function (ransomNote, magazine) {
-  let magazineMap = new Map();
-  let ransomNoteMap = new Map();
+  let letterArr = new Array(26).fill(0);
 
-  for (const letter of magazine) {
-    magazineMap.set(letter, (magazineMap.get(letter) || 0) + 1);
+  for (let i = 0; i < magazine.length; i++) {
+    const code = magazine.charCodeAt(i);
+    letterArr[code - 97]++;
   }
-
-  for (const letter of ransomNote) {
-    ransomNoteMap.set(letter, (ransomNoteMap.get(letter) || 0) + 1);
-  }
-
-  for (const [key, value] of ransomNoteMap) {
-    if (!magazineMap.get(key)) return false;
-    const count = magazineMap.get(key);
-    if (value > count) return false;
+  for (let i = 0; i < ransomNote.length; i++) {
+    const code = ransomNote.charCodeAt(i);
+    letterArr[code - 97]--;
+    if (letterArr[code - 97] < 0) {
+      return false;
+    }
   }
   return true;
 };
