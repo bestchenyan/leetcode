@@ -10,23 +10,38 @@
  * @param {string} needle
  * @return {number}
  */
+
 var strStr = function (haystack, needle) {
   if (needle.length > haystack.length) return -1;
-  let [l, r] = [0, needle.length - 1];
-  const w = r - l + 1;
+  if (needle.length == 0) return 0;
 
-  while (r < haystack.length) {
-    let count = 0;
-    for (let i = 0; i < w; i++) {
-      if (haystack[i + l] != needle[i]) break;
-      count++;
+  const getNext = (str) => {
+    let j = 0;
+    let next = [j];
+
+    for (let i = 1; i < str.length; i++) {
+      while (j > 0 && str[j] != str[i]) {
+        j = next[j - 1];
+      }
+      if (str[j] == str[i]) {
+        j++;
+      }
+      next[i] = j;
     }
-    if (count == w) {
-      return l;
+    return next;
+  };
+
+  const next = getNext(needle);
+  let j = 0;
+
+  for (let i = 0; i < haystack.length; i++) {
+    while (j > 0 && needle[j] != haystack[i]) {
+      j = next[j - 1];
     }
-    l++;
-    r++;
+    if (needle[j] == haystack[i]) j++;
+    if (j == needle.length) return i - j;
   }
+
   return -1;
 };
 // @lc code=end
