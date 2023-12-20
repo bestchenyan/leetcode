@@ -10,11 +10,27 @@
  * @return {number}
  */
 var mySqrt = function (x) {
+  let l = 0,
+    r = x;
+  while (l <= r) {
+    const mid = (l + r) >> 1;
+    if (mid * mid == x) return mid;
+    if (mid * mid > x) {
+      r = mid - 1;
+    } else {
+      l = mid + 1;
+    }
+  }
+  return r;
+};
+/**
+ * 牛顿迭代法
+ * var mySqrt = function (x) {
   let a = x;
   while (Math.floor(a) * Math.floor(a) > x) {
     a = (a + x / a) / 2;
   }
   return Math.floor(a);
 };
-// console.log(mySqrt(8));
+ */
 // @lc code=end
