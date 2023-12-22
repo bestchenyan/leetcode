@@ -11,16 +11,18 @@
  */
 // 解法2
 var sortedSquares = function (nums) {
+  let left = 0;
+  let right = nums.length - 1;
+  let k = right;
   let result = [];
-  let l = 0;
-  let r = nums.length - 1;
-  let k = r;
 
-  while (l <= r) {
-    if (nums[l] ** 2 < nums[r] ** 2) {
-      result[k--] = nums[r--] ** 2;
+  while (left <= right) {
+    if (nums[left] ** 2 < nums[right] ** 2) {
+      result[k--] = nums[right] ** 2;
+      right--;
     } else {
-      result[k--] = nums[l++] ** 2;
+      result[k--] = nums[left] ** 2;
+      left++;
     }
   }
   return result;
