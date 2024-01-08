@@ -11,52 +11,58 @@
  */
 var spiralOrder = function (matrix) {
   const result = [];
-  let k = 0;
+
+  const m = matrix.length;
+  const n = matrix[0].length;
 
   let startx = 0,
-    i = 0,
-    m = matrix.length;
-  let starty = 0,
-    j = 0,
-    n = matrix[0].length;
-
-  let offset = 1;
+    starty = 0;
 
   let loop = Math.floor(Math.min(m, n) / 2);
-  const mid = Math.floor(Math.min(m, n) / 2);
+  let offset = 0;
+
+  let index = 0;
 
   while (loop--) {
-    //
-    for (i = startx, j = starty; j < n - offset; j++) {
-      result[k++] = matrix[i][j];
+    for (; starty < n - offset - 1; starty++) {
+      result[index++] = matrix[startx][starty];
     }
-    //
-    for (; i < m - offset; i++) {
-      result[k++] = matrix[i][j];
+
+    for (; startx < m - offset - 1; startx++) {
+      result[index++] = matrix[startx][starty];
     }
-    //
-    for (; j > starty; j--) {
-      result[k++] = matrix[i][j];
+
+    for (; starty > offset; starty--) {
+      result[index++] = matrix[startx][starty];
     }
-    //
-    for (; i > startx; i--) {
-      result[k++] = matrix[i][j];
+
+    for (; startx > offset; startx--) {
+      result[index++] = matrix[startx][starty];
     }
+
     startx++;
     starty++;
+
     offset++;
   }
-  if (Math.min(m, n) % 2 === 1) {
+
+  if (Math.min(m, n) % 2 == 0) return result;
+
+  if (m == n) {
+    result[index++] = matrix[startx][starty];
+  } else {
+    const restCont = Math.abs(m - n) + 1;
     if (m > n) {
-      for (let i = mid; i < m - mid; i++) {
-        result[k++] = matrix[i][mid];
+      for (let i = 0; i < restCont; i++) {
+        result[index++] = matrix[startx++][starty];
       }
     } else {
-      for (let j = mid; j < n - mid; j++) {
-        result[k++] = matrix[mid][j];
+      for (let i = 0; i < restCont; i++) {
+        result[index++] = matrix[startx][starty++];
       }
     }
   }
+
   return result;
 };
 // @lc code=end
