@@ -10,43 +10,40 @@
  * @return {number[][]}
  */
 var generateMatrix = function (n) {
-  let output = new Array(n).fill(0).map(() => new Array(n).fill(0));
-  let count = 0;
-  let size = n * n;
-  let left = 0;
-  let right = n - 1;
-  let top = 0;
-  let bottom = n - 1;
-  while (count < size) {
-    //going left
-    for (let i = left; i <= right; i++) {
-      count++;
-      output[top][i] = count;
-    }
-    top++;
+  const output = new Array(n).fill(0).map(() => new Array(n).fill(0));
 
-    // going down
-    for (let i = top; i <= bottom; i++) {
-      count++;
-      output[i][right] = count;
-    }
-    right--;
+  let startx = 0,
+    starty = 0;
 
-    //going left
-    for (let i = right; i >= left; i--) {
-      count++;
-      output[bottom][i] = count;
-    }
-    bottom--;
+  let loop = Math.floor(n / 2);
+  let loopCount = 1;
 
-    //going up
-    for (let i = bottom; i >= top; i--) {
-      count++;
-      output[i][left] = count;
+  let count = 1;
+
+  while (loop--) {
+    for (; starty < n - loopCount; starty++) {
+      output[startx][starty] = count++;
     }
-    left++;
+
+    for (; startx < n - loopCount; startx++) {
+      output[startx][starty] = count++;
+    }
+
+    for (; starty > loopCount - 1; starty--) {
+      output[startx][starty] = count++;
+    }
+    for (; startx > loopCount - 1; startx--) {
+      output[startx][starty] = count++;
+    }
+    startx++;
+    starty++;
+    loopCount++;
+  }
+  if (n % 2) {
+    output[startx][starty] = count++;
   }
 
   return output;
 };
+
 // @lc code=end
