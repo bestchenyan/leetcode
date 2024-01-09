@@ -19,19 +19,16 @@
  */
 
 var removeElements = function (head, val) {
-  const list = new ListNode(0, head);
-  // list.next = getListFromArray(head);
-  let prev = list;
+  const listNode = new ListNode(0, head);
+  let prev = listNode;
   while (prev.next) {
-    if (prev.next.val === val) {
+    if (prev.next.val == val) {
       prev.next = prev.next.next;
     } else {
       prev = prev.next;
     }
   }
-  // logList(list.next);
-  return list.next;
+  return listNode.next;
 };
-removeElements([1, 2, 6, 3, 4, 5, 6], 6);
 
 // @lc code=end
