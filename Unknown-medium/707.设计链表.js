@@ -13,16 +13,17 @@ class NodeList {
 }
 var MyLinkedList = function () {
   this._size = 0;
+
   this._head = null;
   this._tail = null;
 };
 
 MyLinkedList.prototype.getNode = function (index) {
-  let curNode = this._head;
+  let node = this._head;
   while (index--) {
-    curNode = curNode.next;
+    node = node.next;
   }
-  return curNode;
+  return node;
 };
 
 /**
@@ -31,8 +32,8 @@ MyLinkedList.prototype.getNode = function (index) {
  */
 MyLinkedList.prototype.get = function (index) {
   if (index < 0 || index >= this._size) return -1;
-  const curNode = this.getNode(index);
-  return curNode.val;
+  const node = this.getNode(index);
+  return node.val;
 };
 
 /**
@@ -93,16 +94,15 @@ MyLinkedList.prototype.deleteAtIndex = function (index) {
   if (index === 0) {
     this._head = this._head.next;
     if (index === this._size - 1) {
-      this._tail = null;
+      this._tail = this._head;
     }
     this._size--;
     return;
   }
-
-  const curNode = this.getNode(index - 1);
-  curNode.next = curNode.next.next;
+  const node = this.getNode(index - 1);
+  node.next = node.next.next;
   if (index === this._size - 1) {
-    this._tail = curNode;
+    this._tail = node;
   }
   this._size--;
 };
