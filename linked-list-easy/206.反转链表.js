@@ -19,7 +19,7 @@
 var reverseList = function (head) {
   return reverse(null, head);
 };
-
+// 递归
 function reverse(prev, cur) {
   if (!cur) return prev;
   let temp = cur.next;
@@ -27,16 +27,19 @@ function reverse(prev, cur) {
   return reverse(cur, temp);
 }
 // @lc code=end
-// var reverseList = function (head) {
-//     let temp = null;
-//     let cur = head;
-//     let prev = null;
 
-//     while (cur) {
-//         temp = cur.next;
-//         cur.next = prev;
-//         prev = cur;
-//         cur = temp;
-//     }
-//     return prev;
-// };
+/**
+ * 双指针
+ */
+var reverseList = function (head) {
+  let temp;
+  let cur = head;
+  let prev = null;
+  while (cur) {
+    temp = cur.next;
+    cur.next = prev;
+    prev = cur;
+    cur = temp;
+  }
+  return prev;
+};
