@@ -17,18 +17,19 @@
  * @return {ListNode}
  */
 var swapPairs = function (head) {
-  let list = new ListNode(0, head);
-  let prev = list;
-  let cur = list.next;
-  while (cur) {
-    let temp = cur.next;
-    if (!temp) break;
+  const dummyHead = new ListNode(0, head);
+  let prev = dummyHead;
+  let cur = head;
+  let temp;
+  while (cur && cur.next) {
+    temp = cur.next;
+    prev.next = temp;
     cur.next = temp.next;
     temp.next = cur;
-    prev.next = temp;
+
     prev = cur;
     cur = cur.next;
   }
-  return list.next;
+  return dummyHead.next;
 };
 // @lc code=end
