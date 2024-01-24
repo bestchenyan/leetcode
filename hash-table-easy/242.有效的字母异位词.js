@@ -11,16 +11,13 @@
  * @return {boolean}
  */
 var isAnagram = function (s, t) {
-  let record = new Array(26).fill(0);
+  if (s.length != t.length) return false;
+
+  const record = new Array(26).fill(0);
 
   for (let i = 0; i < s.length; i++) {
-    const chartIndex = s.charCodeAt(i) - 97;
-    record[chartIndex]++;
-  }
-
-  for (let i = 0; i < t.length; i++) {
-    const chartIndex = t.charCodeAt(i) - 97;
-    record[chartIndex]--;
+    record[s.charCodeAt(i) - "a".charCodeAt(0)]++;
+    record[t.charCodeAt(i) - "a".charCodeAt(0)]--;
   }
 
   for (let i = 0; i < record.length; i++) {
