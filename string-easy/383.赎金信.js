@@ -11,18 +11,17 @@
  * @return {boolean}
  */
 var canConstruct = function (ransomNote, magazine) {
-  let letterArr = new Array(26).fill(0);
+  if (ransomNote.length > magazine.length) return false;
+  const letterArr = new Array(26).fill(0);
 
   for (let i = 0; i < magazine.length; i++) {
-    const code = magazine.charCodeAt(i);
-    letterArr[code - 97]++;
+    letterArr[magazine.charCodeAt(i) - "a".charCodeAt(0)]++;
   }
+
   for (let i = 0; i < ransomNote.length; i++) {
-    const code = ransomNote.charCodeAt(i);
-    letterArr[code - 97]--;
-    if (letterArr[code - 97] < 0) {
-      return false;
-    }
+    const index = ransomNote.charCodeAt(i) - "a".charCodeAt(0);
+    letterArr[index]--;
+    if (letterArr[index] < 0) return false;
   }
   return true;
 };
