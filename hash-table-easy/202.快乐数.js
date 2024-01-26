@@ -10,16 +10,13 @@
  * @return {boolean}
  */
 var isHappy = function (n) {
-  let set = new Set();
-  while (n != 1) {
+  const set = new Set();
+  while (n !== 1) {
+    set.add(n);
     n = String(n)
       .split("")
-      .reduce((acc, cur) => acc + Math.pow(+cur, 2), 0);
-    if (set.has(n)) {
-      return false;
-    } else {
-      set.add(n);
-    }
+      .reduce((acc, cur) => acc + Math.pow(cur, 2), 0);
+    if (set.has(n)) return false;
   }
   return true;
 };
