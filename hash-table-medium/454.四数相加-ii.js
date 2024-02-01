@@ -13,24 +13,24 @@
  * @return {number}
  */
 var fourSumCount = function (nums1, nums2, nums3, nums4) {
-  let map = new Map();
+  const map = new Map();
   let count = 0;
-  for (let i of nums1) {
-    for (let j of nums2) {
-      const sum = i + j;
+
+  for (let i = 0; i < nums1.length; i++) {
+    for (let j = 0; j < nums2.length; j++) {
+      const sum = nums1[i] + nums2[j];
       map.set(sum, (map.get(sum) || 0) + 1);
     }
   }
 
-  for (let k of nums3) {
-    for (let l of nums4) {
-      const key = 0 - (k + l);
-      if (map.get(key)) {
-        count += map.get(key);
-      }
+  for (let i = 0; i < nums3.length; i++) {
+    for (let j = 0; j < nums4.length; j++) {
+      const value = 0 - (nums3[i] + nums4[j]);
+      count += map.get(value) || 0;
     }
   }
 
   return count;
 };
 // @lc code=end
+fourSumCount([1, 2], [-2, -1], [-1, 2], [0, 2]);
