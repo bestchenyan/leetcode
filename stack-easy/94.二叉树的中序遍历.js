@@ -36,3 +36,30 @@ var inorderTraversal = function (root) {
   return res;
 };
 // @lc code=end
+
+// 统一风格迭代 左中右
+function inorderTraversal(root) {
+  const stack = [],
+    result = [];
+
+  if (root) {
+    stack.push(root);
+  }
+
+  while (stack.length) {
+    let node = stack[stack.length - 1];
+    if (node !== null) {
+      stack.pop();
+      if (node.right) stack.push(node.right); // 右
+      stack.push(node); // 中
+      stack.push(null); // 标记法 ，空指针标记
+      if (node.left) stack.push(node.left); // 左
+    } else {
+      stack.pop();
+      node = stack.pop();
+      result.push(node.val);
+    }
+  }
+
+  return result;
+}
