@@ -22,10 +22,8 @@ var invertTree = function (root) {
   if (root) {
     queue.push(root);
   }
-
   while (queue.length) {
     const size = queue.length;
-
     for (let k = 0; k < size; k++) {
       const node = queue.shift();
       [node.left, node.right] = [node.right, node.left];
@@ -33,7 +31,16 @@ var invertTree = function (root) {
       if (node.right) queue.push(node.right);
     }
   }
-
   return root;
 };
 // @lc code=end
+/**
+ * 递归实现
+ */
+// function invertTree(root) {
+//   if (root == null) return root;
+//   [root.left, root.right] = [root.right, root.left];
+//   invertTree(root.left);
+//   invertTree(root.right);
+//   return root;
+// }
