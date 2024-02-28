@@ -19,7 +19,22 @@
  */
 var isSymmetric = function (root) {
   if (!root) return true;
-  return compare(root.left, root.right);
+  //   return compare(root.left, root.right);
+  const queue = [root.left, root.right];
+
+  while (queue.length) {
+    const left = queue.shift();
+    const right = queue.shift();
+    if (left == null && right == null) continue;
+
+    if ((!left && right) || (left && !right) || left.val !== right.val) {
+      return false;
+    }
+    queue.push(left.left, right.right);
+    queue.push(left.right, right.left);
+  }
+
+  return true;
 };
 
 /** 1. 递归函数参数及返回值类型
